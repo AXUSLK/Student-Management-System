@@ -63,14 +63,12 @@
                     <!-- min content end -->
 
                 </div>
-
             </div>
         </div>
     </section>
 
-    <!-- start footer -->
+    <!-- js -->
     @include('layouts.js')
-    <!-- end footer -->
 
 </body>
 
