@@ -17,7 +17,7 @@ class RoleSeeder extends Seeder
         Role::create(
             [
                 'id' => 1,
-                'name' => 'Teacher',
+                'name' => 'Admin',
                 'guard_name' => 'web',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
@@ -27,6 +27,16 @@ class RoleSeeder extends Seeder
         Role::create(
             [
                 'id' => 2,
+                'name' => 'Teacher',
+                'guard_name' => 'web',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]
+        );
+
+        Role::create(
+            [
+                'id' => 3,
                 'name' => 'Student',
                 'guard_name' => 'web',
                 'created_at' => Carbon::now(),
