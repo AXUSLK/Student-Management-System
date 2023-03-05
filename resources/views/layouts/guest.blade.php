@@ -20,7 +20,7 @@
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <img class="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                alt="Workflow">
+                alt="Student Management System">
             <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
             <p class="mt-2 text-center text-sm text-gray-600">
                 Student Management System

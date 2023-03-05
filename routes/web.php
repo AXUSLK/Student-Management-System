@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::resource('subjects', SubjectController::class);
+    Route::resource('students', StudentController::class);
 
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
