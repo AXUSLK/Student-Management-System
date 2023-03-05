@@ -38,6 +38,7 @@ class SubjectSeeder extends Seeder
                 'id' => '3',
                 'name' => 'Information Technology',
                 'pass_mark' => 80,
+                'status' => false,
                 'created_by' => '1',
                 'updated_by' => '1',
             ]

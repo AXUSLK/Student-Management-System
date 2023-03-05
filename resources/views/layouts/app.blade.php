@@ -53,24 +53,22 @@
                     <!-- end page heading -->
 
                     <!-- main content start -->
-                    <main class="max-md:px-6">
+                    <main class="min-h-screen max-md:px-6">
                         {{ $slot }}
-
-                        <!-- start footer -->
-                        @include('layouts.footer')
-                        <!-- end footer -->
                     </main>
                     <!-- min content end -->
 
-                </div>
+                    <!-- start footer -->
+                    @include('layouts.footer')
+                    <!-- end footer -->
 
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- start footer -->
+    <!-- js -->
     @include('layouts.js')
-    <!-- end footer -->
 
 </body>
 

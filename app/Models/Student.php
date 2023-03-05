@@ -29,6 +29,21 @@ class Student extends Model
         'status' => 'boolean',
     ];
 
+    public function firstName()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    public function lastName()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    public function userEmail()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
     public function createdBy()
     {
         return $this->hasOne(User::class, 'id', 'created_by');
@@ -37,6 +52,11 @@ class Student extends Model
     public function updatedBy()
     {
         return $this->hasOne(User::class, 'id', 'updated_by');
+    }
+
+    public function studentGender()
+    {
+        return $this->hasOne(Lov::class, 'id', 'gender');
     }
 
     public function scopeActive($query)
