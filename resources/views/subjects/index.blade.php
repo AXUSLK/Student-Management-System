@@ -90,10 +90,18 @@
                                         <th scope="col"
                                             class="text-center py-3.5 pl-4 pr-4 text-sm font-semibold text-gray-900 sm:pl-6 ">
                                             Pass Mark</th>
-                                        <th scope="col"
-                                            class="text-center px-4 py-3.5 text-sm font-semibold text-gray-900">
-                                            Status
-                                        </th>
+                                        @if (Auth::user()->hasRole(['Student']))
+                                            <th scope="col"
+                                                class="text-center py-3.5 pl-4 pr-4 text-sm font-semibold text-gray-900 sm:pl-6 ">
+                                                Mark
+                                            </th>
+                                        @endif
+                                        @if (Auth::user()->hasAnyRole(['Admin', 'Teacher']))
+                                            <th scope="col"
+                                                class="text-center px-4 py-3.5 text-sm font-semibold text-gray-900">
+                                                Status
+                                            </th>
+                                        @endif
                                         <th scope="col" style="text-align: center"
                                             class="py-3.5 pl-4 pr-4 text-center text-sm font-semibold text-gray-900 sm:pr-6">
                                             Actions
@@ -115,20 +123,49 @@
                                                 class="whitespace-nowrap text-center py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-6">
                                                 {{ $subject->pass_mark }}
                                             </td>
-                                            <td
-                                                class="whitespace-nowrap text-center py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-6">
-                                                @if ($subject->status)
-                                                    <span
-                                                        class="inline-flex rounded-full bg-green-300 text-center px-3 py-1 text-xs font-semibold leading-5 text-green-800">
-                                                        Active
-                                                    </span>
-                                                @else
-                                                    <span
-                                                        class="inline-flex rounded-full bg-red-300 text-center px-3 py-1 text-xs font-semibold leading-5 text-red-800">
-                                                        De-active
-                                                    </span>
-                                                @endif
-                                            </td>
+                                            @if (Auth::user()->hasRole(['Student']))
+                                                @php
+                                                    $student = App\Models\Student::where('user_id', Auth::user()->id)->first();
+                                                    $subjectMark = DB::table('student_subject')
+                                                        ->where('student_subject.student_id', $student->id)
+                                                        ->where('student_subject.subject_id', $subject->id)
+                                                        ->first();
+                                                @endphp
+                                                <td
+                                                    class="whitespace-nowrap text-center py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-6">
+                                                    @if ($subjectMark?->mark)
+                                                        @if ($subjectMark?->mark >= $subject->pass_mark)
+                                                            <span
+                                                                class="inline-flex bg-green-300 text-center px-3 py-1 text-xs font-bold leading-5 text-green-800">
+                                                                {{ $subjectMark?->mark }}
+                                                            </span>
+                                                        @else
+                                                            <span
+                                                                class="inline-flex bg-red-300 text-center px-3 py-1 text-xs font-bold leading-5 text-red-800">
+                                                                {{ $subjectMark?->mark }}
+                                                            </span>
+                                                        @endif
+                                                    @else
+                                                        <span>-</span>
+                                                    @endif
+                                                </td>
+                                            @endif
+                                            @if (Auth::user()->hasAnyRole(['Admin', 'Teacher']))
+                                                <td
+                                                    class="whitespace-nowrap text-center py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-6">
+                                                    @if ($subject->status)
+                                                        <span
+                                                            class="inline-flex bg-green-300 text-center px-3 py-1 text-xs font-bold leading-5 text-green-800">
+                                                            Active
+                                                        </span>
+                                                    @else
+                                                        <span
+                                                            class="inline-flex bg-red-300 text-center px-3 py-1 text-xs font-bold leading-5 text-red-800">
+                                                            De-active
+                                                        </span>
+                                                    @endif
+                                                </td>
+                                            @endif
                                             <td
                                                 class="whitespace-nowrap py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-6">
 
@@ -146,32 +183,34 @@
                                                             </path>
                                                         </svg>
                                                     </a>
-                                                    <a href="{{ route('subjects.edit', $subject->id) }}"
-                                                        class="flex mx-2 space-x-2 items-center px-3 py-2 bg-black text-white rounded-md drop-shadow-md">
-                                                        <svg class="w-6 h-6" fill="none" stroke="currentColor"
-                                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                                                            </path>
-                                                        </svg>
-                                                    </a>
-                                                    {!! Form::open([
-                                                        'method' => 'DELETE',
-                                                        'route' => ['subjects.destroy', $subject->id],
-                                                        'style' => 'display:inline',
-                                                    ]) !!}
-                                                    <button
-                                                        class="delete_list_item_btn flex mx-2 space-x-2 items-center px-3 py-2 bg-red-600 text-white rounded-md drop-shadow-md">
-                                                        <svg class="fill-white" xmlns="http://www.w3.org/2000/svg"
-                                                            fill="white" x="0px" y="0px"
-                                                            width="20" height="20" viewBox="0 0 24 24">
-                                                            <path
-                                                                d="M 10 2 L 9 3 L 3 3 L 3 5 L 21 5 L 21 3 L 15 3 L 14 2 L 10 2 z M 4.3652344 7 L 5.8925781 20.263672 C 6.0245781 21.253672 6.877 22 7.875 22 L 16.123047 22 C 17.121047 22 17.974422 21.254859 18.107422 20.255859 L 19.634766 7 L 4.3652344 7 z">
-                                                            </path>
-                                                        </svg>
-                                                    </button>
-                                                    {!! Form::close() !!}
+                                                    @if (Auth::user()->hasAnyRole(['Admin', 'Teacher']))
+                                                        <a href="{{ route('subjects.edit', $subject->id) }}"
+                                                            class="flex mx-2 space-x-2 items-center px-3 py-2 bg-black text-white rounded-md drop-shadow-md">
+                                                            <svg class="w-6 h-6" fill="none" stroke="currentColor"
+                                                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2"
+                                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                                                </path>
+                                                            </svg>
+                                                        </a>
+                                                        {!! Form::open([
+                                                            'method' => 'DELETE',
+                                                            'route' => ['subjects.destroy', $subject->id],
+                                                            'style' => 'display:inline',
+                                                        ]) !!}
+                                                        <button
+                                                            class="delete_list_item_btn flex mx-2 space-x-2 items-center px-3 py-2 bg-red-600 text-white rounded-md drop-shadow-md">
+                                                            <svg class="fill-white" xmlns="http://www.w3.org/2000/svg"
+                                                                fill="white" x="0px" y="0px"
+                                                                width="20" height="20" viewBox="0 0 24 24">
+                                                                <path
+                                                                    d="M 10 2 L 9 3 L 3 3 L 3 5 L 21 5 L 21 3 L 15 3 L 14 2 L 10 2 z M 4.3652344 7 L 5.8925781 20.263672 C 6.0245781 21.253672 6.877 22 7.875 22 L 16.123047 22 C 17.121047 22 17.974422 21.254859 18.107422 20.255859 L 19.634766 7 L 4.3652344 7 z">
+                                                                </path>
+                                                            </svg>
+                                                        </button>
+                                                        {!! Form::close() !!}
+                                                    @endif
                                                 </div>
 
                                             </td>

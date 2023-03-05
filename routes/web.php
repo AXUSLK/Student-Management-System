@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportCardController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use Illuminate\Support\Facades\Route;
@@ -27,7 +28,12 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::resource('subjects', SubjectController::class);
     Route::resource('students', StudentController::class);
-
+    Route::get('/attach-subjects/{student}', [StudentController::class, 'getAssignSubjects'])->name('get.attach.subjects');
+    Route::post('/attach-subjects/{student}', [StudentController::class, 'postAssignSubjects'])->name('post.attach.subjects');
+    Route::get('/add-marks/{subject}/{student}', [SubjectController::class, 'getAddMarks'])->name('get.add.marks');
+    Route::post('/add-marks/{subject}/{student}', [SubjectController::class, 'postAddMarks'])->name('post.add.marks');
+    Route::get('/report-card', [ReportCardController::class, 'show'])->name('report.show');
+    Route::get('/report-card/pdf', [ReportCardController::class, 'createPDF'])->name('report.pdf');;
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

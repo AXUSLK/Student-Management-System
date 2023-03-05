@@ -40,4 +40,11 @@ class Subject extends Model
     {
         return $query->where('status', true);
     }
+
+    public function studentMark()
+    {
+        return $this->belongsToMany(Student::class, 'student_subject', 'subject_id', 'student_id')
+            ->withPivot(['mark'])
+            ->withTimestamps();
+    }
 }

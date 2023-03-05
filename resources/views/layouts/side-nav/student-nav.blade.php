@@ -83,20 +83,20 @@
                     class="text-indigo-100 hover:bg-gray-100 hover:text-gray-900 {{ request()->is('dashboard') ? 'bg-gray-100 text-black' : '' }} flex items-center px-2 py-2 text-sm font-medium rounded-md"
                     x-state:on="Current" x-state:off="Default"
                     x-state-description="Current: &quot;bg-gray-100 text-gray-900&quot;, Default: &quot;text-indigo-100 hover:bg-gray-100&quot;">
-                    <svg class="mr-3 flex-shrink-0 h-6 w-6" x-description="Heroicon name: outline/home"
-                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                        aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+
+                    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                        class="mr-3 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z">
                         </path>
                     </svg>
                     Dashboard
                 </a>
 
                 <!-- SUBJECTS -->
-                <div x-data="{{ request()->is('dashboard/subjects*') ? '{open:true}' : '{open:false}' }}" class="space-y-1">
+                <div x-data="{{ request()->is('subjects*') ? '{open:true}' : '{open:false}' }}" class="space-y-1">
                     <button type="button"
-                        class="text-indigo-100 hover:bg-gray-100 hover:text-gray-900 {{ request()->is('dashboard/subjects*') ? 'bg-gray-100 text-black' : '' }} group w-full flex items-center pl-2 pr-1 py-2 text-left text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        class="text-indigo-100 hover:bg-gray-100 hover:text-gray-900 {{ request()->is('subjects*') ? 'bg-gray-100 text-black' : '' }} group w-full flex items-center pl-2 pr-1 py-2 text-left text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         x-state:on="Current" x-state:off="Default" aria-controls="sub-menu-1" @click="open = !open"
                         aria-expanded="open" x-bind:aria-expanded="open.toString()"
                         x-state-description="Current: &quot;bg-gray-100 text-gray-900&quot;, Default: &quot;text-indigo-100 hover:bg-gray-100&quot;">
@@ -117,51 +117,27 @@
                     </button>
                     <div x-description="Expandable link section, show/hide based on state." class="space-y-1"
                         :class="open ? 'd-block' : 'd-none'" id="sub-menu-1" x-show="open">
-                        <a href="{{ route('subjects.create') }}"
-                            class="{{ request()->is('dashboard/subjects/create') ? 'bg-indigo-300 text-gray-900' : '' }} group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium text-indigo-100 rounded-md hover:text-gray-900 hover:bg-indigo-400">
-                            Add a Subject
-                        </a>
                         <a href="{{ route('subjects.index') }}"
-                            class="{{ request()->is('dashboard/subjects') ? 'bg-indigo-300 text-gray-900' : '' }} group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium text-indigo-100 rounded-md hover:text-gray-900 hover:bg-indigo-400">
-                            Manage Subjects
+                            class="{{ request()->is('subjects') ? 'bg-indigo-300 text-black' : '' }} group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium text-indigo-100 rounded-md hover:text-gray-900 hover:bg-indigo-400">
+                            Enrolled Subjects
                         </a>
                     </div>
                 </div>
 
-                <!-- STUDENTS -->
-                <div x-data="{{ request()->is('dashboard/students*') ? '{open:true}' : '{open:false}' }}" class="space-y-1">
-                    <button type="button"
-                        class="text-indigo-100 hover:bg-gray-100 hover:text-gray-900 {{ request()->is('dashboard/students*') ? 'bg-gray-100 text-black' : '' }} group w-full flex items-center pl-2 pr-1 py-2 text-left text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        x-state:on="Current" x-state:off="Default" aria-controls="sub-menu-1" @click="open = !open"
-                        aria-expanded="open" x-bind:aria-expanded="open.toString()"
-                        x-state-description="Current: &quot;bg-gray-100 text-gray-900&quot;, Default: &quot;text-indigo-100 hover:bg-gray-100&quot;">
-                        <svg class="mr-3 flex-shrink-0 h-6 w-6" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
-                            </path>
-                        </svg>
-                        <span class="flex-1">
-                            Students
-                        </span>
-                        <svg class="text-gray-50 ml-3 flex-shrink-0 h-5 w-5 transform group-hover:text-gray-500 transition-colors ease-in-out duration-150"
-                            viewBox="0 0 20 20" x-state:on="Expanded" x-state:off="Collapsed" aria-hidden="true"
-                            :class="{ 'text-gray-400 rotate-90': open, 'text-gray-300': !(open) }">
-                            <path d="M6 6L14 10L6 14V6Z" fill="currentColor"></path>
-                        </svg>
-                    </button>
-                    <div x-description="Expandable link section, show/hide based on state." class="space-y-1"
-                        :class="open ? 'd-block' : 'd-none'" id="sub-menu-1" x-show="open">
-                        <a href="{{ route('students.create') }}"
-                            class="{{ request()->is('dashboard/students/create') ? 'bg-indigo-300 text-gray-900' : '' }} group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium text-indigo-100 rounded-md hover:text-gray-900 hover:bg-indigo-400">
-                            Add a Student
-                        </a>
-                        <a href="{{ route('students.index') }}"
-                            class="{{ request()->is('dashboard/students') ? 'bg-indigo-300 text-gray-900' : '' }} group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium text-indigo-100 rounded-md hover:text-gray-900 hover:bg-indigo-400">
-                            Manage Students
-                        </a>
-                    </div>
-                </div>
+                <!-- REPORT -->
+                <a href="/report-card"
+                    class="text-indigo-100 hover:bg-gray-100 hover:text-gray-900 {{ request()->is('report-card') ? 'bg-gray-100 text-black' : '' }} flex items-center px-2 py-2 text-sm font-medium rounded-md"
+                    x-state:on="Current" x-state:off="Default"
+                    x-state-description="Current: &quot;bg-gray-100 text-gray-900&quot;, Default: &quot;text-indigo-100 hover:bg-gray-100&quot;">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                        class="mr-3 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z">
+                        </path>
+                    </svg>
+                    My Report
+                </a>
+
             </nav>
         </div>
     </div>

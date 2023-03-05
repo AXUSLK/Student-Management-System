@@ -2,20 +2,20 @@
     <!-- Main Content Section -->
     <div class="py-6">
         <div class="px-12">
-            <h1 class="text-2xl font-semibold text-gray-900">Edit Subject</h1>
+            <h1 class="text-2xl font-semibold text-gray-900">Attach Subjects to
+                {{ App\Models\User::where('id', $student->user_id)->first()?->name }}</h1>
         </div>
 
-        <div class="">
-            <form method="POST" action="{{ route('subjects.update', $subject->id) }}" enctype="multipart/form-data"
+        <div class="pb-32">
+            <form method="POST" action="{{ route('post.attach.subjects', $student) }}" enctype="multipart/form-data"
                 class="space-y-8  px-12 py-4">
                 @csrf
-                <input type="hidden" name="_method" value="PATCH">
                 <div class="space-y-8 divide-y bg-white px-8 py-8 shadow divide-gray-200 sm:space-y-5">
                     <div>
 
                         <div class="flex justify-between items-center">
-                            <h3 class="text-lg leading-6 font-medium text-gray-900">Add Subject</h3>
-                            <a href="{{ route('subjects.index') }}"
+                            <h3 class="text-lg leading-6 font-medium text-gray-900">Attach Subjects</h3>
+                            <a href="{{ route('students.show', $student->id) }}"
                                 class="ml-3 inline-flex justify-center px-6 py-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                 Back</a>
                         </div>
@@ -75,53 +75,21 @@
                         @endif
 
                         <div class="mt-6 sm:mt-5 space-y-6 sm:space-y-5">
-
                             <div
                                 class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-                                <label for="name" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2 ">
-                                    Subject Name
+                                <label for="subjects" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2 ">
+                                    Subjects
                                 </label>
-                                <div class="mt-1 sm:mt-0 sm:col-span-2">
-                                    <div class="max-w-lg flex rounded-md shadow-sm">
-                                        <input type="text" name="name" id="name"
-                                            value="{{ old('name', $subject->name) }}" autocomplete="name" required
-                                            placeholder="Enter Subject Name"
-                                            class="flex-1  block w-full focus:ring-indigo-500 focus:border-indigo-500 min-w-0  rounded-md sm:text-sm border-gray-300">
-                                    </div>
-                                </div>
                             </div>
-
-                            <div
-                                class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-                                <label for="name" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2 ">
-                                    Pass Mark
-                                </label>
-                                <div class="mt-1 sm:mt-0 sm:col-span-2">
-                                    <div class="max-w-lg flex rounded-md shadow-sm">
-                                        <input type="number" name="mark" id="mark"
-                                            value="{{ old('mark', $subject->pass_mark) }}" autocomplete="mark" required
-                                            placeholder="Enter Pass Mark"
-                                            class="flex-1  block w-full focus:ring-indigo-500 focus:border-indigo-500 min-w-0  rounded-md sm:text-sm border-gray-300">
-                                    </div>
+                            @foreach ($subjects as $value)
+                                <div class="checkbox">
+                                    <input type="checkbox" name="subjects[]" id="subjects_{{ $value->id }}"
+                                        {{ in_array($value->id, $studentSubjects) ? 'checked' : '' }} class="name mx-2"
+                                        value="{{ $value->id }}">
+                                    <label for="subjects_{{ $value->id }}"><span class="checkbox-icon"></span>
+                                        {{ $value->name }} </label>
                                 </div>
-                            </div>
-
-                            <div
-                                class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-                                <label for="gender" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2 ">
-                                    Status
-                                </label>
-                                <div class="mt-1 sm:mt-0 sm:col-span-2">
-                                    <div class="max-w-lg flex rounded-md shadow-sm">
-                                        <div class="checkbox">
-                                            <input type="checkbox" name="status" id="status"
-                                                {{ $subject->status ? 'checked' : '' }} class="name mx-2"
-                                                value="{{ $subject->status ? 1 : 0 }}">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -130,7 +98,7 @@
                     <div class="flex justify-start">
                         <button type="submit"
                             class="inline-flex justify-center px-6 py-3 shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                            Update Subject
+                            Attach
                         </button>
                     </div>
                 </div>

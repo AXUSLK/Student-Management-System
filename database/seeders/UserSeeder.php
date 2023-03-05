@@ -50,9 +50,19 @@ class UserSeeder extends Seeder
             'email_verified_at' => Carbon::now(),
         ]);
 
+        $Student3 = User::create([
+            'id' => '5',
+            'first_name' => 'Nadun',
+            'last_name' => 'Perera',
+            'email' => 'nadun@gmail.lk',
+            'password' => bcrypt('nadun@123'),
+            'email_verified_at' => Carbon::now(),
+        ]);
+
         $Admin->assignRole([1]);
         $Teacher->assignRole([2]);
         $Student1->assignRole([3]);
         $Student2->assignRole([3]);
+        $Student3->assignRole([3]);
     }
 }
