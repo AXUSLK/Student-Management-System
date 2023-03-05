@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <style>
+    <style type="text/css">
         td {
             border: 1px solid #726E6D;
             padding: 15px;
@@ -149,6 +149,22 @@
                                     </td>
                                 </tr>
                         </table>
+                    </div>
+                </div>
+                @php
+                    $student = App\Models\Student::where('user_id', Auth::user()->id)->first();
+                    $collect = collect($ranked_students);
+                    $search = $collect->where('student_id', $student->id);
+                @endphp
+
+                <div class="md:flex md:items-center py-8 md:justify-between">
+                    <div class="flex-1 min-w-0">
+                        @foreach ($search as $key => $node)
+                            <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+                                Congratulation! Your rank is {{ $key + 1 }} out of
+                                {{ count($ranked_students) }} students
+                            </h2>
+                        @endforeach
                     </div>
                 </div>
             </div>

@@ -22,12 +22,14 @@ class ReportCardController extends Controller
             ->get();
         $subject_count = count($student_subjects);
 
-        $rank_students = DB::table("student_subject")
-            ->where("student_subject.student_id", $student->id)
-            ->whereNotNull('mark')
+        $ranked_students = DB::table('student_subject')
+            ->select('student_id', DB::raw('AVG(mark) as average_mark'))
+            ->groupBy('student_id')
+            ->orderBy('mark', 'desc')
             ->get();
+
         if ($subject_count > 0) {
-            return view('report-card.show', compact('student', 'student_subjects', 'total_pass_mark', 'total_student_mark', 'subject_count'));
+            return view('report-card.show', compact('student', 'student_subjects', 'total_pass_mark', 'total_student_mark', 'subject_count', 'ranked_students'));
         } else {
             abort('404');
         }
@@ -44,13 +46,14 @@ class ReportCardController extends Controller
             ->get();
         $subject_count = count($student_subjects);
 
-        $rank_students = DB::table("student_subject")
-            ->where("student_subject.student_id", $student->id)
-            ->whereNotNull('mark')
+        $ranked_students = DB::table('student_subject')
+            ->select('student_id', DB::raw('AVG(mark) as average_mark'))
+            ->groupBy('student_id')
+            ->orderBy('mark', 'desc')
             ->get();
 
         //   view()->share('employee', $data);
-        $pdf = Pdf::loadView('report-card.pdf', compact('student', 'student_subjects', 'total_pass_mark', 'total_student_mark', 'subject_count'));
+        $pdf = Pdf::loadView('report-card.pdf', compact('student', 'student_subjects', 'total_pass_mark', 'total_student_mark', 'subject_count', 'ranked_students'));
         // download PDF file with download method
         return $pdf->download('pdf_file.pdf');
     }
