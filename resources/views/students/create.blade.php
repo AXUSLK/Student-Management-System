@@ -2,7 +2,7 @@
     <!-- Main Content Section -->
     <div class="py-6">
         <div class="px-12">
-            <h1 class="text-2xl font-semibold text-gray-900">Add New Student</h1>
+            <h1 class="text-2xl font-semibold text-gray-900">Register New Student</h1>
         </div>
 
         <div class="pb-32">

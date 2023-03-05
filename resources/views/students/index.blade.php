@@ -141,12 +141,12 @@
                                                 class="whitespace-nowrap text-center py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-6">
                                                 @if ($student->status)
                                                     <span
-                                                        class="inline-flex rounded-full bg-green-300 text-center px-3 py-1 text-xs font-semibold leading-5 text-green-800">
+                                                        class="inline-flex bg-green-300 text-center px-3 py-1 text-xs font-bold leading-5 text-green-800">
                                                         Active
                                                     </span>
                                                 @else
                                                     <span
-                                                        class="inline-flex rounded-full bg-red-300 text-center px-3 py-1 text-xs font-semibold leading-5 text-red-800">
+                                                        class="inline-flex bg-red-300 text-center px-3 py-1 text-xs font-bold leading-5 text-red-800">
                                                         De-active
                                                     </span>
                                                 @endif

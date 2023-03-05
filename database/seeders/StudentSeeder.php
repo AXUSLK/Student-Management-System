@@ -36,5 +36,17 @@ class StudentSeeder extends Seeder
                 'updated_by' => '1',
             ]
         );
+
+        Student::create(
+            [
+                'phone' => '0714563344',
+                'address' => 'Colombo',
+                'course_id' => 1,
+                'gender' => 6,
+                'user_id' => 5,
+                'created_by' => '1',
+                'updated_by' => '1',
+            ]
+        );
     }
 }
