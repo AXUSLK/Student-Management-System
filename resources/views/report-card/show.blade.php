@@ -36,7 +36,7 @@
                 {{ Auth::user()->name }}
             </h1>
             <div>
-                <a href="{{ route('subjects.index') }}"
+                <a href="{{ route('report.pdf') }}"
                     class="ml-3 inline-flex justify-center px-6 py-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                     Download pdf</a>
                 <a href="{{ route('subjects.index') }}"
@@ -150,8 +150,8 @@
                                                         <td colspan="3" class="footer">AVERAGE </td>
                                                         <td colspan="3">
                                                             @php
-                                                                $avarage_pass = $total_pass_mark / $subject_count;
-                                                                $avarage = $total_student_mark / $subject_count;
+                                                                $avarage_pass = round($total_pass_mark / $subject_count, 2);
+                                                                $avarage = round($total_student_mark / $subject_count, 2);
                                                             @endphp
                                                             {{ $avarage }} / {{ $avarage_pass }}
                                                         </td>

@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/add-marks/{subject}/{student}', [SubjectController::class, 'getAddMarks'])->name('get.add.marks');
     Route::post('/add-marks/{subject}/{student}', [SubjectController::class, 'postAddMarks'])->name('post.add.marks');
     Route::get('/report-card', [ReportCardController::class, 'show'])->name('report.show');
+    Route::get('/report-card/pdf', [ReportCardController::class, 'createPDF'])->name('report.pdf');;
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
