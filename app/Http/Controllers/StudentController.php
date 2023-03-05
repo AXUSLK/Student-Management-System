@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Subject;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
-class SubjectController extends Controller
+class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $subjects = Subject::get();
-        return view('subjects.index', compact('subjects'));
+        //
     }
 
     /**
@@ -35,7 +34,7 @@ class SubjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Subject $subject)
+    public function show(Student $student)
     {
         //
     }
@@ -43,7 +42,7 @@ class SubjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Subject $subject)
+    public function edit(Student $student)
     {
         //
     }
@@ -51,7 +50,7 @@ class SubjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Subject $subject)
+    public function update(Request $request, Student $student)
     {
         //
     }
@@ -59,7 +58,7 @@ class SubjectController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Subject $subject)
+    public function destroy(Student $student)
     {
         //
     }
