@@ -27,13 +27,13 @@
             <div x-data="{ open: false }" @keydown.window.escape="open = false">
 
                 <!-- start side-nav -->
-                @role('Admin')
+                @if (Auth::user()->hasRole('Admin'))
                     @include('layouts.side-nav.admin-nav')
-                    @elserole('Teacher')
+                @elseif(Auth::user()->hasRole('Teacher'))
                     @include('layouts.side-nav.teacher-nav')
-                    @elserole('Student')
+                @elseif(Auth::user()->hasRole('Student'))
                     @include('layouts.side-nav.student-nav')
-                @endrole
+                @endif
                 <!-- end side-nav -->
 
                 <div class="md:pl-64 flex flex-col flex-1">

@@ -20,7 +20,7 @@ class SubjectController extends Controller
     {
         $user = Auth::user();
         if ($user->hasAnyRole(['Admin', 'Teacher'])) {
-            $subjects = Subject::active()->get();
+            $subjects = Subject::get();
         } elseif ($user->hasAnyRole(['Student'])) {
             $subjects = Subject::active()
                 ->with('studentMark')

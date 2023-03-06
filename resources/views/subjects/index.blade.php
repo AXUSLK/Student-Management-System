@@ -10,12 +10,14 @@
                         including the name, passmark and other data.
                     </p>
                 </div>
-                <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-                    <a href="{{ route('subjects.create') }}"
-                        class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">
-                        Add Subject
-                    </a>
-                </div>
+                @if (Auth::user()->hasAnyRole(['Admin', 'Teacher']))
+                    <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+                        <a href="{{ route('subjects.create') }}"
+                            class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">
+                            Add Subject
+                        </a>
+                    </div>
+                @endif
             </div>
 
             @if (Session::has('success') || count($errors) > 0)
@@ -82,26 +84,33 @@
                                     <tr class="divide-x divide-gray-200">
                                         <th scope="col"
                                             class="py-3.5 pl-4 pr-4 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                                            No</th>
+                                            No
+                                        </th>
+
                                         <th scope="col"
                                             class="px-4 py-3.5 text-left text-sm font-semibold text-gray-900">
                                             Subject
                                         </th>
+
                                         <th scope="col"
                                             class="text-center py-3.5 pl-4 pr-4 text-sm font-semibold text-gray-900 sm:pl-6 ">
-                                            Pass Mark</th>
+                                            Pass Mark
+                                        </th>
+
                                         @if (Auth::user()->hasRole(['Student']))
                                             <th scope="col"
                                                 class="text-center py-3.5 pl-4 pr-4 text-sm font-semibold text-gray-900 sm:pl-6 ">
                                                 Mark
                                             </th>
                                         @endif
+
                                         @if (Auth::user()->hasAnyRole(['Admin', 'Teacher']))
                                             <th scope="col"
                                                 class="text-center px-4 py-3.5 text-sm font-semibold text-gray-900">
                                                 Status
                                             </th>
                                         @endif
+
                                         <th scope="col" style="text-align: center"
                                             class="py-3.5 pl-4 pr-4 text-center text-sm font-semibold text-gray-900 sm:pr-6">
                                             Actions
@@ -115,14 +124,17 @@
                                                 class="whitespace-nowrap py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-6">
                                                 {{ $subject->id }}
                                             </td>
+
                                             <td
                                                 class="whitespace-nowrap py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-6">
                                                 {{ $subject->name }}
                                             </td>
+
                                             <td
                                                 class="whitespace-nowrap text-center py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-6">
                                                 {{ $subject->pass_mark }}
                                             </td>
+
                                             @if (Auth::user()->hasRole(['Student']))
                                                 @php
                                                     $student = App\Models\Student::where('user_id', Auth::user()->id)->first();
@@ -150,6 +162,7 @@
                                                     @endif
                                                 </td>
                                             @endif
+
                                             @if (Auth::user()->hasAnyRole(['Admin', 'Teacher']))
                                                 <td
                                                     class="whitespace-nowrap text-center py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-6">
@@ -166,6 +179,7 @@
                                                     @endif
                                                 </td>
                                             @endif
+
                                             <td
                                                 class="whitespace-nowrap py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-6">
 
@@ -216,12 +230,7 @@
                                             </td>
                                         </tr>
                                     @empty
-                                        <tr class="divide-x divide-gray-200">
-                                            <td
-                                                class="whitespace-nowrap py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-6">
-                                                No subjects found
-                                            </td>
-                                        </tr>
+                                        <h3 class="py-4">No subjects found</h3>
                                     @endforelse
                                     <!-- More people... -->
                                 </tbody>
