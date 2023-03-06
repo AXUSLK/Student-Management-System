@@ -137,8 +137,11 @@
                     </svg>
                     My Report
                 </a>
-
             </nav>
+            <!-- User Name and Role  -->
+            <span class="p-4 text-gray-200">
+                {{ Auth::user()->name }} - {{ Auth::user()->roles->pluck('name')[0] ?? '' }}
+            </span>
         </div>
     </div>
 </div>

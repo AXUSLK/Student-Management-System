@@ -57,6 +57,7 @@ class StudentController extends Controller
             $student->user_id = $user->id;
             $student->created_by = Auth::user()->id;
             $student->save();
+            $user->assignRole([3]);
         }
         return redirect()->route('students.index')
             ->with('success', 'Student registered successfully');
@@ -116,7 +117,8 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        Student::find($id)->delete();
+        $student = Student::find($id);
+        User::where('id', $student->user_id)->delete();
         return redirect()->route('students.index')
             ->with('success', 'Student deleted successfully');
     }

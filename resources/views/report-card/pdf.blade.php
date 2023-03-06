@@ -117,6 +117,10 @@
                                     @php
                                         $total_pass_mark = $total_pass_mark + $get_subject->pass_mark;
                                         $total_student_mark = $total_student_mark + $subject->mark;
+                                        
+                                        $student = App\Models\Student::where('user_id', Auth::user()->id)->first();
+                                        $collect = collect($ranked_students);
+                                        $search = $collect->where('student_id', $student->id);
                                     @endphp
                                 @empty
                                     <tr class="divide-x divide-gray-200">
@@ -148,14 +152,19 @@
                                         {{ $avarage }} / {{ $avarage_pass }}
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td colspan="3" class="footer">
+                                        POSITION
+                                    </td>
+                                    <td colspan="3">
+                                        @foreach ($search as $key => $node)
+                                            {{ $key + 1 }} / {{ count($ranked_students) }}
+                                        @endforeach
+                                    </td>
+                                </tr>
                         </table>
                     </div>
                 </div>
-                @php
-                    $student = App\Models\Student::where('user_id', Auth::user()->id)->first();
-                    $collect = collect($ranked_students);
-                    $search = $collect->where('student_id', $student->id);
-                @endphp
 
                 <div class="md:flex md:items-center py-8 md:justify-between">
                     <div class="flex-1 min-w-0">
